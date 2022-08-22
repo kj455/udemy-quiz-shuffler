@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { onMessage } from "webext-bridge";
 import browser from "webextension-polyfill";
-import { ShuffleQuizEffect } from "./views/ContentApp";
+import { ShuffleQuizEffect } from './views/ShuffleQuizEffect';
 
 // Firefox `browser.tabs.executeScript()` requires scripts return a primitive value
 (() => {
