@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { createStore } from '../questionState';
-
-const questionPromptSelector = '[aria-labelledby="question-prompt"]';
+import { useEffect } from 'react';
+import { questionPromptSelector } from '../const';
+import { createStore } from '../store';
+import { useIsQuizPage } from '../useIsQuizPage';
 
 const shuffleQuestions = (
   document: Document,
@@ -43,7 +43,7 @@ const {
   registerShuffleOrder,
 } = createStore();
 
-const shuffleEffect = () => {
+const shuffleEffect = (document: Document) => {
   const current = getQuestionTextFromDom(document);
   if (current == null) {
     return;
@@ -59,15 +59,6 @@ const shuffleEffect = () => {
   if (order != null) {
     registerShuffleOrder(order);
   }
-};
-
-const isQuizPage = (): boolean => {
-  const quizPageElement = document.querySelector(questionPromptSelector);
-  return quizPageElement != null;
-};
-
-const getRootUdemyElement = (document: Document): Element | null => {
-  return document.getElementsByClassName('udemy')?.[0] ?? null;
 };
 
 const getFormElement = (document: Document): HTMLFormElement | null => {
@@ -86,32 +77,14 @@ const getQuestionTextFromDom = (document: Document): string | null => {
 };
 
 export const ShuffleQuizEffect = () => {
-  const [isQuiz, setIsQuiz] = useState(false);
-
-  // detect question page
-  useEffect(() => {
-    const rootElement = getRootUdemyElement(document);
-    if (rootElement == null) {
-      return;
-    }
-    const observer = new MutationObserver(() => {
-      setIsQuiz(isQuizPage());
-    });
-    observer.observe(rootElement, {
-      childList: true,
-      subtree: true,
-    });
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+  const isQuiz = useIsQuizPage();
 
   // initial shuffle
   useEffect(() => {
     if (!isQuiz) {
       return;
     }
-    shuffleEffect();
+    shuffleEffect(document);
   }, [isQuiz]);
 
   // shuffle at every question
@@ -126,7 +99,7 @@ export const ShuffleQuizEffect = () => {
     }
 
     const observer = new MutationObserver(() => {
-      shuffleEffect();
+      shuffleEffect(document);
     });
     observer.observe(form, {
       childList: true,

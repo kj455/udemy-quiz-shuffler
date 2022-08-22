@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { createStore } from '../questionState';
+import { createStore } from '../store';
 
 describe('questionState', () => {
   test('should return initial state', () => {
