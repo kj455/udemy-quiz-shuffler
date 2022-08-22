@@ -47,28 +47,31 @@ export const sharedConfig: UserConfig = {
 
 export default defineConfig(({ command }) => ({
   ...sharedConfig,
-  base: command === "serve" ? `http://localhost:${port}/` : "/dist/",
+  base: command === 'serve' ? `http://localhost:${port}/` : '/dist/',
   server: {
     port,
     hmr: {
-      host: "localhost",
+      host: 'localhost',
     },
   },
   build: {
-    outDir: r("extension/dist"),
+    outDir: r('extension/dist'),
     emptyOutDir: false,
-    sourcemap: isDev ? "inline" : false,
+    sourcemap: isDev ? 'inline' : false,
     // https://developer.chrome.com/docs/webstore/program_policies/#:~:text=Code%20Readability%20Requirements
     terserOptions: {
       mangle: false,
     },
     rollupOptions: {
       input: {
-        background: r("src/background/index.html"),
-        options: r("src/options/index.html"),
-        popup: r("src/popup/index.html"),
+        background: r('src/background/index.html'),
+        options: r('src/options/index.html'),
+        popup: r('src/popup/index.html'),
       },
     },
   },
   plugins: [...sharedConfig.plugins!],
+  test: {
+    environment: 'jsdom',
+  },
 }));
