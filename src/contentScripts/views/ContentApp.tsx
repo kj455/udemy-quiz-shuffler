@@ -70,9 +70,7 @@ const getRootUdemyElement = (document: Document): Element | null => {
   return document.getElementsByClassName('udemy')?.[0] ?? null;
 };
 
-const getFormAndQuestionElements = (
-  document: Document,
-): HTMLFormElement | null => {
+const getFormElement = (document: Document): HTMLFormElement | null => {
   return (
     document.querySelector(questionPromptSelector)?.closest('form') ?? null
   );
@@ -122,7 +120,7 @@ export const ShuffleQuizEffect = () => {
       return;
     }
 
-    const form = getFormAndQuestionElements(document);
+    const form = getFormElement(document);
     if (form == null) {
       return;
     }

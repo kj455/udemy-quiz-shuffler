@@ -1,8 +1,13 @@
-export const createStore = () => {
+type State = {
+  question: string;
+  prevQuestion: string;
+};
+export const createStore = (initialState?: Partial<State>) => {
   const shuffledMap = new Map<string, number[]>();
-  let question: string = '';
-  let prevQuestion: string = 'prev';
+  let question: string = initialState?.question ?? '';
+  let prevQuestion: string = initialState?.prevQuestion ?? 'prev';
   return {
+    getQuestion: (): string => question,
     getPrevQuestion: (): string => prevQuestion,
     updateQuestion: (q: string): void => {
       prevQuestion = question;
