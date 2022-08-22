@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { createStore } from '../questionState';
 
 const questionPromptSelector = '[aria-labelledby="question-prompt"]';
 
@@ -40,25 +41,10 @@ const {
   updateQuestion,
   getShuffleOrder,
   registerShuffleOrder,
-} = (() => {
-  const shuffledMap = new Map<string, number[]>();
-  let question: string = '';
-  let prevQuestion: string = 'prev';
-  return {
-    getPrevQuestion: (): string => prevQuestion,
-    updateQuestion: (q: string): void => {
-      prevQuestion = question;
-      question = q;
-    },
-    getShuffleOrder: (q: string): number[] | undefined => shuffledMap.get(q),
-    registerShuffleOrder: (order: number[]) => {
-      shuffledMap.set(question, order);
-    },
-  };
-})();
+} = createStore();
 
 const shuffleEffect = () => {
-  const current = getQuestionFromDom(document);
+  const current = getQuestionTextFromDom(document);
   if (current == null) {
     return;
   }
@@ -80,11 +66,11 @@ const isQuizPage = (): boolean => {
   return quizPageElement != null;
 };
 
-const getRootUdemyElemnt = (document: Document): Element | null => {
+const getRootUdemyElement = (document: Document): Element | null => {
   return document.getElementsByClassName('udemy')?.[0] ?? null;
 };
 
-const getFormAndQuestionsFromDom = (
+const getFormAndQuestionElements = (
   document: Document,
 ): HTMLFormElement | null => {
   return (
@@ -92,7 +78,7 @@ const getFormAndQuestionsFromDom = (
   );
 };
 
-const getQuestionFromDom = (document: Document): string | null => {
+const getQuestionTextFromDom = (document: Document): string | null => {
   return (
     document
       .querySelector(questionPromptSelector)
@@ -106,7 +92,7 @@ export const ShuffleQuizEffect = () => {
 
   // detect question page
   useEffect(() => {
-    const rootElement = getRootUdemyElemnt(document);
+    const rootElement = getRootUdemyElement(document);
     if (rootElement == null) {
       return;
     }
@@ -136,7 +122,7 @@ export const ShuffleQuizEffect = () => {
       return;
     }
 
-    const form = getFormAndQuestionsFromDom(document);
+    const form = getFormAndQuestionElements(document);
     if (form == null) {
       return;
     }
