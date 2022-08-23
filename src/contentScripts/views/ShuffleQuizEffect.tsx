@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { questionPromptSelector } from '../const';
+import { getFormElement, getQuestionTextFromDom } from '../services';
 import { createStore } from '../store';
 import { useIsQuizPage } from '../useIsQuizPage';
 
@@ -59,21 +60,6 @@ const shuffleEffect = (document: Document) => {
   if (order != null) {
     registerShuffleOrder(order);
   }
-};
-
-const getFormElement = (document: Document): HTMLFormElement | null => {
-  return (
-    document.querySelector(questionPromptSelector)?.closest('form') ?? null
-  );
-};
-
-const getQuestionTextFromDom = (document: Document): string | null => {
-  return (
-    document
-      .querySelector(questionPromptSelector)
-      ?.closest('form')
-      ?.querySelector('span')?.textContent ?? null
-  );
 };
 
 export const ShuffleQuizEffect = () => {
