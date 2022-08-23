@@ -1,66 +1,10 @@
 import { useEffect } from 'react';
-import { questionPromptSelector } from '../const';
-import { getFormElement, getQuestionTextFromDom } from '../services';
+import { getFormElement } from '../services';
+import { shuffleEffect } from '../shuffle';
 import { createStore } from '../store';
 import { useIsQuizPage } from '../useIsQuizPage';
 
-const shuffleQuestions = (
-  document: Document,
-  order?: number[],
-): number[] | undefined => {
-  const ul = document.querySelector(questionPromptSelector);
-  if (ul == null) {
-    return;
-  }
-  const li = ul.querySelectorAll('li');
-  li.forEach((l) => {
-    ul.removeChild(l);
-  });
-
-  // if order is provided, use it and return
-  if (order != null) {
-    order.forEach((i) => {
-      ul.appendChild(li[i]);
-    });
-    return order;
-  }
-
-  // otherwise, shuffle the questions
-  const shuffled = Array.from(li).sort(() => Math.random() - 0.5);
-  shuffled.forEach((l) => {
-    ul.appendChild(l);
-  });
-
-  const shuffledIndexes = shuffled.map((l) => {
-    return Array.from(li).indexOf(l);
-  });
-  return shuffledIndexes;
-};
-
-const {
-  getPrevQuestion,
-  updateQuestion,
-  getShuffleOrder,
-  registerShuffleOrder,
-} = createStore();
-
-const shuffleEffect = (document: Document) => {
-  const current = getQuestionTextFromDom(document);
-  if (current == null) {
-    return;
-  }
-  updateQuestion(current);
-
-  const prev = getPrevQuestion();
-  if (current === prev) {
-    return;
-  }
-
-  const order = shuffleQuestions(document, getShuffleOrder(current));
-  if (order != null) {
-    registerShuffleOrder(order);
-  }
-};
+const store = createStore();
 
 export const ShuffleQuizEffect = () => {
   const isQuiz = useIsQuizPage();
@@ -70,7 +14,7 @@ export const ShuffleQuizEffect = () => {
     if (!isQuiz) {
       return;
     }
-    shuffleEffect(document);
+    shuffleEffect(document, store);
   }, [isQuiz]);
 
   // shuffle at every question
@@ -85,7 +29,7 @@ export const ShuffleQuizEffect = () => {
     }
 
     const observer = new MutationObserver(() => {
-      shuffleEffect(document);
+      shuffleEffect(document, store);
     });
     observer.observe(form, {
       childList: true,

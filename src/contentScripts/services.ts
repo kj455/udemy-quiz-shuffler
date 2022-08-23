@@ -1,4 +1,5 @@
 import { questionPromptSelector } from './const';
+import { Store } from './store';
 
 export const isQuizPage = (document: Document): boolean => {
   const quizPageElement = document.querySelector(questionPromptSelector);
@@ -24,7 +25,7 @@ export const getQuestionTextFromDom = (document: Document): string | null => {
   );
 };
 
-export const shuffleQuestions = (
+export const shuffleQuestionDoms = (
   document: Document,
   order?: number[],
 ): number[] | undefined => {

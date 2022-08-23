@@ -4,7 +4,7 @@ import {
   getQuestionTextFromDom,
   getRootUdemyElement,
   isQuizPage,
-  shuffleQuestions,
+  shuffleQuestionDoms,
 } from '../services';
 
 test.each<[Document, boolean]>([
@@ -60,10 +60,12 @@ test.each<[Document, string | null]>([
   expect(getQuestionTextFromDom(document)).toBe(expected);
 });
 
-describe('shuffleQuestions', () => {
+describe('shuffleQuestionDoms', () => {
   test('if no ul is found, return undefined', () => {
     expect(
-      shuffleQuestions({ querySelector: vi.fn().mockReturnValue(null) } as any),
+      shuffleQuestionDoms({
+        querySelector: vi.fn().mockReturnValue(null),
+      } as any),
     ).toBeUndefined();
   });
 
@@ -86,7 +88,7 @@ describe('shuffleQuestions', () => {
     };
     const order = [2, 1, 0];
 
-    const shuffled = shuffleQuestions(doc as any, order);
+    const shuffled = shuffleQuestionDoms(doc as any, order);
 
     expect(shuffled).toEqual(order);
     expect(mockAppendChild.mock.calls).toStrictEqual([
@@ -109,7 +111,7 @@ describe('shuffleQuestions', () => {
     };
     const order = undefined;
 
-    shuffleQuestions(doc as any, order);
+    shuffleQuestionDoms(doc as any, order);
 
     expect(mockAppendChild).toHaveBeenCalledTimes(3);
   });
