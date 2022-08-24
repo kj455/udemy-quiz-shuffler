@@ -35,14 +35,14 @@ export const Popup = () => {
     >
       {isQuiz ? (
         <p>
-          Udemy Quiz was shuffled successfully!{' '}
+          Shuffled successfully!{' '}
           <span role="img" aria-label="tada">
             🎉
           </span>
         </p>
       ) : (
         <p>
-          Udemy Quiz was not found...
+          Udemy quiz was not found...
           <span role="img" aria-label="sad face">
             🙁
           </span>
