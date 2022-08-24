@@ -1,8 +1,8 @@
 {
-  "name": "udemy-test-shuffler",
-  "displayName": "Udemy Test Shuffler",
+  "name": "udemy-quiz-shuffler",
+  "displayName": "Udemy Quiz Shuffler",
   "version": "0.0.1",
-  "description": "[description]",
+  "description": "browser extension to shuffle udemy quizzes",
   "private": true,
   "scripts": {
     "dev": "npm run clear && cross-env NODE_ENV=development run-p dev:*",
@@ -27,6 +27,7 @@
     "@ffflorian/jszip-cli": "^3.1.5",
     "@iconify/json": "^1.1.408",
     "@testing-library/react-hooks": "^8.0.1",
+    "@types/chrome": "^0.0.195",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^16.10.2",
     "@types/react": "^17.0.33",
