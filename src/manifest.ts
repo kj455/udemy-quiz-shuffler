@@ -26,7 +26,7 @@ export async function getManifest() {
       48: './assets/icon.png',
       128: './assets/icon.png',
     },
-    permissions: ['tabs', 'storage', 'activeTab', 'http://*/', 'https://*/'],
+    permissions: ['tabs', 'activeTab'],
     content_scripts: [
       {
         matches: ['*://www.udemy.com/*/quiz/*'],
