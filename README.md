@@ -1,3 +1,5 @@
+![1280x540_white](https://user-images.githubusercontent.com/38521709/186534468-6349a6b2-eb3d-4c46-b757-6d70bef3fdcd.png)
+
 # Udemy Quiz Shuffler
 
 A chrome extension to shuffle udemy quiz choices.
