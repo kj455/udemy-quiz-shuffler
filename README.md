@@ -1,5 +1,15 @@
 ![1280x540_white](https://user-images.githubusercontent.com/38521709/186534468-6349a6b2-eb3d-4c46-b757-6d70bef3fdcd.png)
 
+<p align="center">
+  Udemy Quiz Shuffler is a chrome extension that shuffles the Udemy quiz choices.
+</p>
+
+<p align="center">
+  <a href="https://github.com/scaffdog/scaffdog/actions?workflow=CI"><img src="https://img.shields.io/github/workflow/status/kj455/udemy-quiz-shuffler/Test?logo=github&style=flat-square" alt="GitHub Workflow Status" /></a>
+  <a href="#"><img src="https://img.shields.io/chrome-web-store/rating/mbljgefddojilenlhlmfejolfefibgml" alt="rating" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/github/license/scaffdog/scaffdog?label=license&style=flat-square" alt="MIT LICENSE" /></a>
+</p>
+
 # Udemy Quiz Shuffler
 
 A chrome extension to shuffle udemy quiz choices.
