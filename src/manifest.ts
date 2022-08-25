@@ -25,7 +25,7 @@ export async function getManifest() {
       48: './assets/icon.png',
       128: './assets/icon.png',
     },
-    permissions: ['tabs', 'activeTab'],
+    permissions: ['tabs'],
     content_scripts: [
       {
         matches: ['*://www.udemy.com/*/quiz/*'],
